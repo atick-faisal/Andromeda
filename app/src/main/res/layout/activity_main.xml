@@ -9,16 +9,54 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:alpha="0.8"
+            android:src="@drawable/circle_purple" />
+
+        <ImageView
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:alpha="0.8"
+            android:src="@drawable/circle_teal" />
+
+        <ImageView
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:alpha="0.8"
+            android:src="@drawable/circle_orange" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif-light"
+        android:text="Sensor Dashboard"
+        android:textAlignment="center"
+        android:textSize="24sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
             android:layout_weight="1"
             android:background="@drawable/card"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginBottom="4dp"
             android:elevation="4dp"
             android:orientation="vertical">
 
@@ -31,9 +69,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.7"
-                    android:paddingTop="16dp"
+                    android:orientation="vertical"
                     android:paddingLeft="16dp"
-                    android:orientation="vertical">
+                    android:paddingTop="16dp">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -55,8 +93,8 @@
                 <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:paddingRight="16dp"
-                    android:layout_weight="0.3">
+                    android:layout_weight="0.3"
+                    android:paddingRight="16dp">
 
                     <ImageView
                         android:layout_width="32dp"
@@ -76,22 +114,22 @@
 
         </LinearLayout>
 
-<!-- /////////////////////////////////////////////////////////////////////////////////////////// -->
+        <!-- /////////////////////////////////////////////////////////////////////////////////////////// -->
 
         <Space
             android:layout_width="8dp"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
-<!-- ////////////////////////////////////////////////////////////////////////////////////////////-->
+        <!-- ////////////////////////////////////////////////////////////////////////////////////////////-->
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/card"
             android:layout_marginTop="16dp"
             android:layout_marginRight="16dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/card"
             android:elevation="4dp"
             android:orientation="vertical">
 
@@ -104,9 +142,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.7"
-                    android:paddingTop="16dp"
+                    android:orientation="vertical"
                     android:paddingLeft="16dp"
-                    android:orientation="vertical">
+                    android:paddingTop="16dp">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -128,8 +166,8 @@
                 <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:paddingRight="16dp"
-                    android:layout_weight="0.3">
+                    android:layout_weight="0.3"
+                    android:paddingRight="16dp">
 
                     <ImageView
                         android:layout_width="32dp"
@@ -151,8 +189,8 @@
 
     </LinearLayout>
 
-<!-- /////////////////////////////////////////////////////////////////////////////////////////// -->
-<!-- /////////////////////////////////////////////////////////////////////////////////////////// -->
+    <!-- /////////////////////////////////////////////////////////////////////////////////////////// -->
+    <!-- /////////////////////////////////////////////////////////////////////////////////////////// -->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -162,11 +200,11 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="8dp"
             android:layout_weight="1"
             android:background="@drawable/card"
-            android:layout_marginTop="4dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginBottom="4dp"
             android:elevation="4dp"
             android:orientation="vertical">
 
@@ -179,14 +217,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.7"
-                    android:paddingTop="16dp"
+                    android:orientation="vertical"
                     android:paddingLeft="16dp"
-                    android:orientation="vertical">
+                    android:paddingTop="16dp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Light"
+                        android:text="Ambient Light"
                         android:textColor="@color/purpleDark"
                         android:textSize="14sp" />
 
@@ -203,8 +241,8 @@
                 <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:paddingRight="16dp"
-                    android:layout_weight="0.3">
+                    android:layout_weight="0.3"
+                    android:paddingRight="16dp">
 
                     <ImageView
                         android:layout_width="32dp"
@@ -228,19 +266,21 @@
 
         <Space
             android:layout_width="8dp"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
         <!-- ////////////////////////////////////////////////////////////////////////////////////////////-->
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/card"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="2dp"
             android:layout_marginRight="16dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_orange_card"
+            android:clickable="true"
             android:elevation="4dp"
+            android:focusable="true"
             android:orientation="vertical">
 
             <LinearLayout
@@ -252,23 +292,23 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.7"
-                    android:paddingTop="16dp"
+                    android:orientation="vertical"
                     android:paddingLeft="16dp"
-                    android:orientation="vertical">
+                    android:paddingTop="16dp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Light"
-                        android:textColor="@color/purpleDark"
+                        android:text="Ceiling Fan"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="14sp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-thin"
-                        android:text="90 LUX"
-                        android:textColor="@color/purpleDark"
+                        android:text="OFF"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="20sp" />
 
                 </LinearLayout>
@@ -276,26 +316,164 @@
                 <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:paddingRight="16dp"
-                    android:layout_weight="0.3">
+                    android:layout_weight="0.3"
+                    android:paddingRight="16dp">
 
                     <ImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:layout_gravity="center"
-                        android:background="#000" />
+                        android:src="@drawable/wind" />
 
                 </FrameLayout>
 
             </LinearLayout>
 
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/line_chart_4"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:layout_gravity="center" />
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/fan" />
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:rotation="90"
+                    android:src="@drawable/sort" />
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/fan_background"
+                    android:src="@drawable/fan" />
+
+            </LinearLayout>
 
         </LinearLayout>
+
+    </LinearLayout>
+
+    <!--    ////////////////////////////////////////////////////////////////////////////////////     -->
+    <!--    ////////////////////////////////////////////////////////////////////////////////////     -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_indigo_card"
+            android:clickable="true"
+            android:elevation="4dp"
+            android:focusable="true"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:orientation="vertical"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Light"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-thin"
+                        android:text="OFF"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:paddingRight="16dp">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/lighthouse" />
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/lightbulb" />
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:rotation="90"
+                    android:src="@drawable/sort" />
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/light" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- /////////////////////////////////////////////////////////////////////////////////////////// -->
+
+        <Space
+            android:layout_width="8dp"
+            android:layout_height="match_parent" />
+
+        <!-- ////////////////////////////////////////////////////////////////////////////////////////////-->
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_weight="1" />
 
     </LinearLayout>
 
