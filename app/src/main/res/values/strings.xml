@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Andromeda</string>
+    <string name="__on__">ON</string>
+    <string name="__off__">OFF</string>
 </resources>
