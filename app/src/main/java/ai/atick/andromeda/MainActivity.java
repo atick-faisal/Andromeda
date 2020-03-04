@@ -2,13 +2,18 @@ package ai.atick.andromeda;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.speech.RecognitionListener;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,14 +52,17 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+import static android.speech.SpeechRecognizer.RESULTS_RECOGNITION;
+
+public class MainActivity extends AppCompatActivity implements RecognitionListener{
 
     MqttAndroidClient client;
     boolean connectionFlag = false;
 
     LineChart[] lineChart = new LineChart[3];
-    TextView tempValue, humValue, lightValue, lightStatus, fanStatus;
+    TextView tempValue, humValue, lightValue, lightStatus, fanStatus, speechPrompt;
     LinearLayout fanController, lightController;
+    ImageView fabButton;
 
     String brokerURL = "tcp://192.168.0.101:1883";
     String receivedMessage = "";
@@ -103,6 +111,8 @@ public class MainActivity extends AppCompatActivity {
         fanStatus = findViewById(R.id.fan_status);
         fanController = findViewById(R.id.fan_controller);
         lightController = findViewById(R.id.light_controller);
+        fabButton = findViewById(R.id.fab);
+        speechPrompt = findViewById(R.id.speech_prompt);
         /////////////////////////////////////////////////////
         fanController.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,6 +124,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sendMessage("__some_topic__", "l");
+            }
+        });
+        fabButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                promptSpeechInput();
+                speechPrompt.setVisibility(View.VISIBLE);
             }
         });
         /////////////////////////////////////////////////////
@@ -138,7 +155,6 @@ public class MainActivity extends AppCompatActivity {
         /////////////////////////////////////////////////////
         new updateCharts().execute();
     }
-
 
     @SuppressLint("StaticFieldLeak")
     private class updateCharts extends AsyncTask<String, Integer, String> {
@@ -337,6 +353,66 @@ public class MainActivity extends AppCompatActivity {
         disconnect();
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    @Override
+    public void onReadyForSpeech(Bundle params) {
+        //Toast.makeText(getApplicationContext(), "Listening", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onBeginningOfSpeech() {
+
+    }
+
+    @Override
+    public void onRmsChanged(float rmsdB) {
+
+    }
+
+    @Override
+    public void onBufferReceived(byte[] buffer) {
+
+    }
+
+    @Override
+    public void onEndOfSpeech() {
+    }
+
+    @Override
+    public void onError(int error) {
+        speechPrompt.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onResults(Bundle results) {
+        ArrayList<String> matches = results.getStringArrayList(RESULTS_RECOGNITION);
+        if(matches != null) {
+            Toast.makeText(getApplicationContext(), matches.get(0), Toast.LENGTH_SHORT).show();
+        }
+        speechPrompt.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onPartialResults(Bundle partialResults) {
+
+    }
+
+    @Override
+    public void onEvent(int eventType, Bundle params) {
+
+    }
+
+    private void promptSpeechInput() {
+        SpeechRecognizer speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
+        speechRecognizer.setRecognitionListener(this);
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, this.getPackageName());
+        speechRecognizer.startListening(intent);
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
     private void requestPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.WAKE_LOCK) != PackageManager.PERMISSION_GRANTED) {
@@ -351,6 +427,9 @@ public class MainActivity extends AppCompatActivity {
             } else if (checkSelfPermission(Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(MainActivity.this,
                         new String[]{Manifest.permission.INTERNET}, 0);
+            } else if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(MainActivity.this,
+                        new String[]{Manifest.permission.RECORD_AUDIO}, 0);
             }
         }
     }
