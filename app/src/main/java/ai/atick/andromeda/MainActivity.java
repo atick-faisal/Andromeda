@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
             lineChart[i].getXAxis().setDrawLabels(false);
             lineChart[i].getXAxis().setEnabled(false);
             lineChart[i].getLegend().setEnabled(false);
+            lineChart[i].setClickable(false);
         }
         /////////////////////////////////////////////////////
         float[] temp = {0f, 0f};
