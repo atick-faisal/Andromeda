@@ -2,13 +2,17 @@ package ai.atick.andromeda;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
@@ -129,8 +133,15 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         fabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    if (vibrator != null) {
+                        vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE));
+                    }
+                }
                 promptSpeechInput();
                 speechPrompt.setVisibility(View.VISIBLE);
+                fabButton.setVisibility(View.GONE);
             }
         });
         /////////////////////////////////////////////////////
@@ -356,7 +367,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     ////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void onReadyForSpeech(Bundle params) {
-        //Toast.makeText(getApplicationContext(), "Listening", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
@@ -381,15 +392,24 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     @Override
     public void onError(int error) {
         speechPrompt.setVisibility(View.GONE);
+        fabButton.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onResults(Bundle results) {
         ArrayList<String> matches = results.getStringArrayList(RESULTS_RECOGNITION);
         if(matches != null) {
-            Toast.makeText(getApplicationContext(), matches.get(0), Toast.LENGTH_SHORT).show();
+            String bestMatch = matches.get(0);
+            Toast.makeText(getApplicationContext(), bestMatch, Toast.LENGTH_SHORT).show();
+            if(bestMatch.contains("light")) {
+                sendMessage("__some_topic__", "l");
+            }
+            if(bestMatch.contains("fan")) {
+                sendMessage("__some_topic__", "f");
+            }
         }
         speechPrompt.setVisibility(View.GONE);
+        fabButton.setVisibility(View.VISIBLE);
     }
 
     @Override
