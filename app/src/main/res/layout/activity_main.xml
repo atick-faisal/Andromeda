@@ -85,10 +85,11 @@
                             android:textSize="14sp" />
 
                         <TextView
+                            android:id="@+id/temp_value"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-thin"
-                            android:text="92 F"
+                            android:text="... C"
                             android:textColor="@color/purpleDark"
                             android:textSize="20sp" />
 
@@ -158,10 +159,11 @@
                             android:textSize="14sp" />
 
                         <TextView
+                            android:id="@+id/hum_value"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-thin"
-                            android:text="78%"
+                            android:text="... %"
                             android:textColor="@color/tealDark"
                             android:textSize="20sp" />
 
@@ -233,10 +235,11 @@
                             android:textSize="14sp" />
 
                         <TextView
+                            android:id="@+id/light_value"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-thin"
-                            android:text="90 LUX"
+                            android:text="... LUX"
                             android:textColor="@color/orangeDark"
                             android:textSize="20sp" />
 

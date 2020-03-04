@@ -3,6 +3,7 @@ package ai.atick.andromeda;
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,10 +26,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
     LineChart[] lineChart = new LineChart[3];
+    TextView tempValue, humValue, lightValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,10 @@ public class MainActivity extends AppCompatActivity {
         lineChart[1] = findViewById(R.id.line_chart_1);
         lineChart[2] = findViewById(R.id.line_chart_2);
         /////////////////////////////////////////////////////
+        tempValue = findViewById(R.id.temp_value);
+        humValue = findViewById(R.id.hum_value);
+        lightValue = findViewById(R.id.light_value);
+        /////////////////////////////////////////////////////
         for(int i = 0; i < 3; i++) {
             lineChart[i].getDescription().setText("");
             lineChart[i].getAxisLeft().setDrawLabels(false);
@@ -54,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             lineChart[i].getXAxis().setDrawLabels(false);
             lineChart[i].getXAxis().setEnabled(false);
             lineChart[i].getLegend().setEnabled(false);
-            lineChart[i].setClickable(false);
+            lineChart[i].setTouchEnabled(false);
         }
         /////////////////////////////////////////////////////
         float[] temp = {0f, 0f};
@@ -121,6 +128,9 @@ public class MainActivity extends AppCompatActivity {
                     hum[i] = Float.parseFloat(dataObject[i].getString("hum"));
                     light[i] = Float.parseFloat(dataObject[i].getString("light"));
                 }
+                tempValue.setText(String.format(Locale.getDefault(), "%d C", (int) temp[5]));
+                humValue.setText(String.format(Locale.getDefault(), "%d %%", (int) hum[5]));
+                lightValue.setText(String.format(Locale.getDefault(), "%d LUX", (int) light[5]));
                 drawCharts(temp, hum, light);
 
             } catch (JSONException e) {
