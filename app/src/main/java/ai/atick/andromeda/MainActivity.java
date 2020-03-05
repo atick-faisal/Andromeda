@@ -27,6 +27,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -64,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
 
     LineChart[] lineChart = new LineChart[3];
     TextView tempValue, humValue, lightValue, lightStatus, fanStatus, speechPrompt;
-    LinearLayout fanController, lightController;
+    LinearLayout fanController, lightController, dots;
     ImageView fabButton;
 
     String brokerURL = "tcp://192.168.0.101:1883";
@@ -80,13 +82,17 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
                 int f = Integer.parseInt(values[1]);
                 if (l == 1) {
                     lightStatus.setText(R.string.__on__);
+                    YoYo.with(Techniques.Flash).duration(700).playOn(lightStatus);
                 } else {
                     lightStatus.setText(R.string.__off__);
+                    YoYo.with(Techniques.Flash).duration(700).playOn(lightStatus);
                 }
                 if (f == 1) {
                     fanStatus.setText(R.string.__on__);
+                    YoYo.with(Techniques.Flash).duration(700).playOn(fanStatus);
                 } else {
                     fanStatus.setText(R.string.__off__);
+                    YoYo.with(Techniques.Flash).duration(700).playOn(fanStatus);
                 }
             }
         }
@@ -116,6 +122,9 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         lightController = findViewById(R.id.light_controller);
         fabButton = findViewById(R.id.fab);
         speechPrompt = findViewById(R.id.speech_prompt);
+        dots = findViewById(R.id.dots);
+        /////////////////////////////////////////////////////
+
         /////////////////////////////////////////////////////
         fanController.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,7 +149,9 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
                 }
                 promptSpeechInput();
                 speechPrompt.setVisibility(View.VISIBLE);
-                fabButton.setVisibility(View.GONE);
+                YoYo.with(Techniques.BounceInUp).duration(700).playOn(speechPrompt);
+                YoYo.with(Techniques.RollOut).duration(700).playOn(fabButton);
+                //fabButton.setVisibility(View.GONE);
             }
         });
         /////////////////////////////////////////////////////
@@ -223,6 +234,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
                 tempValue.setText(String.format(Locale.getDefault(), "%d C", (int) temp[5]));
                 humValue.setText(String.format(Locale.getDefault(), "%d %%", (int) hum[5]));
                 lightValue.setText(String.format(Locale.getDefault(), "%d LUX", (int) light[5]));
+                YoYo.with(Techniques.DropOut).duration(1000).playOn(dots);
                 drawCharts(temp, hum, light);
 
             } catch (JSONException e) {
@@ -391,7 +403,8 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     @Override
     public void onError(int error) {
         speechPrompt.setVisibility(View.GONE);
-        fabButton.setVisibility(View.VISIBLE);
+        YoYo.with(Techniques.RollIn).duration(500).playOn(fabButton);
+        //fabButton.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -408,7 +421,8 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
             }
         }
         speechPrompt.setVisibility(View.GONE);
-        fabButton.setVisibility(View.VISIBLE);
+        YoYo.with(Techniques.RollIn).duration(700).playOn(fabButton);
+        //fabButton.setVisibility(View.VISIBLE);
     }
 
     @Override
