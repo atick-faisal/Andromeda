@@ -26,6 +26,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
     TextView tempValue, humValue, lightValue, lightStatus, fanStatus, speechPrompt;
     LinearLayout fanController, lightController, dots;
     ImageView fabButton;
+    SwipeRefreshLayout refreshLayout;
 
     String brokerURL = "tcp://192.168.0.101:1883";
     String receivedMessage = "";
@@ -94,6 +96,9 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
                     fanStatus.setText(R.string.__off__);
                     YoYo.with(Techniques.Flash).duration(700).playOn(fanStatus);
                 }
+            }
+            if(msg.what == 1) {
+                refreshLayout.setRefreshing(false);
             }
         }
     };
@@ -123,8 +128,22 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         fabButton = findViewById(R.id.fab);
         speechPrompt = findViewById(R.id.speech_prompt);
         dots = findViewById(R.id.dots);
+        refreshLayout = findViewById(R.id.swipe_refresh);
         /////////////////////////////////////////////////////
-
+        refreshLayout.setColorSchemeColors(
+                ContextCompat.getColor(this, R.color.purpleDark),
+                ContextCompat.getColor(this, R.color.orangeDark),
+                ContextCompat.getColor(this, R.color.tealDark)
+        );
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new updateCharts().execute();
+                if(!connectionFlag) {
+                    connectToBroker(brokerURL);
+                }
+            }
+        });
         /////////////////////////////////////////////////////
         fanController.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -204,6 +223,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
                 } finally {
                     if (httpURLConnection != null) {
                         httpURLConnection.disconnect();
+                        handler.sendEmptyMessage(1);
                     }
                 }
             } catch (MalformedURLException e) {
@@ -236,7 +256,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
                 lightValue.setText(String.format(Locale.getDefault(), "%d LUX", (int) light[5]));
                 YoYo.with(Techniques.DropOut).duration(1000).playOn(dots);
                 drawCharts(temp, hum, light);
-
+                refreshLayout.setRefreshing(false);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -412,7 +432,7 @@ public class MainActivity extends AppCompatActivity implements RecognitionListen
         ArrayList<String> matches = results.getStringArrayList(RESULTS_RECOGNITION);
         if(matches != null) {
             String bestMatch = matches.get(0);
-            Toast.makeText(getApplicationContext(), bestMatch, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), bestMatch, Toast.LENGTH_SHORT).show();
             if(bestMatch.contains("light")) {
                 sendMessage("__some_topic__", "l");
             }
