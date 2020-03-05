@@ -7,6 +7,10 @@ Home automation app. Contains a dashboard for sensors and controller for home ap
   <img src="Andromeda_demo.png"/>
 </p>
 
+<p align="center">
+  <img src="Andromeda_demo_3.png"/>
+</p>
+
 ## License
 [![licensebuttons by-nc-sa](https://licensebuttons.net/l/by-nc-sa/3.0/88x31.png)](https://creativecommons.org/licenses/by-nc-sa/4.0)
 
